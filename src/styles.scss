@@ -507,6 +507,7 @@ body {
     grid-area: auto / 1 / auto / 3;
     width: 100%;
     height: 2px;
+    display: block;
     margin: $margin-components 0;
     color: $color-separator;
   }
