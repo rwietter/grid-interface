@@ -430,7 +430,7 @@ body {
       .deluxe-separator {
         margin: $margin-desktop 0;
         height: 2px;
-        color: $color-separator;
+        background: $color-separator;
       }
     }
   }
@@ -509,7 +509,7 @@ body {
     height: 2px;
     display: block;
     margin: $margin-components 0;
-    color: $color-separator;
+    background: $color-separator;
   }
 }
 

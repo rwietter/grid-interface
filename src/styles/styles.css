@@ -407,7 +407,7 @@ body {
 .sumary .included .deluxe-container .deluxe-separator {
   margin: 30px 0;
   height: 2px;
-  color: #262629;
+  background: #262629;
 }
 .sumary .sumary-last-separator {
   grid-area: 2/1/2/4;
@@ -479,7 +479,7 @@ body {
   height: 2px;
   display: block;
   margin: calc(80px) 0;
-  color: #262629;
+  background: #262629;
 }
 
 @media screen and (max-width: 925px) {
