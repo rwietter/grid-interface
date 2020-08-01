@@ -27,8 +27,13 @@
 }
 
 @mixin navListEffect {
-  a {
+  a + a {
     margin: 0 0 0 $margin-desktop;
+  }
+  a:first-child {
+    margin: 1px 0 0 0;
+  }
+  a {
     font-size: clamp(10px, 1rem, 2vw);
     color: #fff;
     text-decoration: none;
@@ -61,16 +66,16 @@
     -webkit-transition: width 0.25s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
     -o-transition: width 0.25s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
     transition: width 0.25s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
-    background: #845ec2;
+    background: #ff2450;
   }
   a::after {
     -webkit-transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83);
     -o-transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83);
     transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83);
-    background: #2fffad;
+    background: #2dc25c;
   }
   a.active:after {
-    background: #2fffad;
+    background: #2dc25c;
     width: 100%;
     left: 0;
   }
