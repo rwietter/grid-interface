@@ -1,22 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
-
-@font-face {
-  font-family: 'Archia Regular';
-  src: url(../public/fonts/Archia-Regular.woff);
-}
-
-$font-primary: 'Quicksand', sans-serif;
-
-$margin-desktop: 30px;
-$margin-mobile: 20px;
-$padding-desktop: 30px;
-$padding-mobile: 20px;
-$gap-desktop: 30px;
-$gap-mobile: 30px;
-$margin-components: calc(#{$margin-desktop + 50px});
-
-$color-separator: #262629;
-$color-text: #696b8c;
+@import './mixins', './media', './variables';
 
 img {
   max-width: 100%;
@@ -39,6 +21,11 @@ body {
   display: grid;
   place-items: center;
   font-size: 1.125rem;
+}
+
+body,
+html {
+  -webkit-font-smoothing: antialiased;
 }
 
 /* Largura da barra de rolagem */
@@ -65,20 +52,39 @@ body {
   background-color: #b86bfd;
 }
 
+/*  styles */
 .wrapper {
   max-width: 75rem;
   display: grid;
   gap: $margin-desktop;
-  grid: 1fr auto 1fr / 1fr 1fr;
+  grid: auto 1fr auto / 1fr 1fr;
   grid-template-areas:
     'header header'
     'main main'
     'footer footer';
 }
 
+@keyframes slide-out {
+  0% {
+    transform: none;
+  }
+  100% {
+    transform: translate(100%, 0);
+  }
+}
+@keyframes slide-in {
+  0% {
+    transform: translate(-100%, 0);
+  }
+  100% {
+    transform: none;
+  }
+}
+
 .header {
   grid-area: header;
   display: flex;
+  height: 6.25rem !important;
   margin: $margin-desktop calc(#{$margin-desktop + 10px}) 0 $margin-desktop;
   place-content: start space-between;
   place-items: center;
@@ -91,26 +97,17 @@ body {
       font-size: clamp(10px, 1rem, 3vw);
     }
   }
-  ul {
+  nav {
     display: flex;
     justify-content: space-evenly;
     list-style: none;
     align-items: center;
-    flex-flow: row wrap;
-    li {
-      margin: 0 0 0 $margin-desktop;
-    }
-    li {
-      font-size: clamp(10px, 1rem, 2vw);
-    }
-    a {
-      color: #fff;
-      text-decoration: none;
-    }
-    li img {
-      transition: 1s;
-      border-radius: 50%;
-    }
+    flex-flow: row nowrap;
+  }
+  @include navListEffect();
+  img {
+    transition: 1s;
+    border-radius: 50%;
   }
 }
 
@@ -127,7 +124,8 @@ body {
     'step step'
     'sumary sumary'
     'quotes quotes'
-    'book book';
+    'book book'
+    'payment payment';
 }
 
 .card-buy-now {
@@ -191,7 +189,8 @@ body {
       margin: 10px 0;
       border-radius: 4px;
       cursor: pointer;
-      transition: background 0.7s;
+      transition: 0.7s;
+      transition-property: background;
       width: 13rem;
       color: rgba(51, 51, 51, 0.9);
       &:hover {
@@ -517,141 +516,256 @@ body {
   }
 }
 
-// -------------- media queries --------------
-
-@media screen and(max-width: 925px) {
-  .header ul li {
-    font-size: clamp(10px, 0.7rem, 2vw);
-    padding: 10px;
+.price-container {
+  grid-area: payment;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 0 50px;
+  .payment-regular {
+    .title {
+      color: #fefefe;
+      font-size: clamp(15px, 2vw, 2rem);
+      span {
+        color: #43e594;
+        font-weight: 400;
+      }
+    }
+    .regular-card {
+      margin: $margin-desktop 0 0 0;
+      background: #21212c;
+      display: flex;
+      flex-direction: column;
+      border-radius: 5px;
+      justify-content: center;
+      transition: 0.2s ease-in;
+      border: 2px solid rgba(0, 0, 0, 0.05);
+      transition-property: border-color;
+      &:hover {
+        border-color: #43e594;
+      }
+      .payment-botton {
+        @include paymentButon();
+      }
+      .regular-card-separator {
+        display: grid;
+        hr {
+          display: block;
+          margin: calc(#{$margin-mobile - 10px}) 0 0 5%;
+          max-width: 90%;
+          height: 2px;
+          border: none;
+          background: $color-text;
+        }
+      }
+      .payment-item {
+        display: flex;
+        padding: $padding-mobile;
+        align-items: center;
+        img {
+          max-width: 10%;
+        }
+        p {
+          font-size: clamp(11px, 2vw, 1.1rem);
+          font-family: $font-primary;
+          color: $color-text;
+          font-weight: 500;
+          margin: 0 $margin-mobile;
+        }
+        strong {
+          color: #fefefe;
+        }
+      }
+    }
+    .credit-card {
+      margin: $margin-mobile 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-flow: row wrap;
+      img {
+        margin: $margin-mobile 0;
+      }
+    }
   }
-  .header div img {
-    max-width: 2rem;
+  .payment-deluxe {
+    h2 {
+      font-size: clamp(15px, 2vw, 2rem);
+      font-weight: 400;
+      color: #24b1d1;
+      strong {
+        color: #fefefe;
+      }
+    }
+    .deluxe-card {
+      margin: $margin-desktop 0 0 0;
+      background: #21212c;
+      border-radius: 5px;
+      transition: 0.2s ease-in;
+      border: 2px solid rgba(0, 0, 0, 0.05);
+      transition-property: border-color;
+      padding: $padding-desktop 0;
+      &:hover {
+        border-color: #24b1d1;
+      }
+      .deluxe-card-item {
+        display: flex;
+        align-items: center;
+        margin: $margin-mobile 0;
+        padding: 0 $padding-mobile;
+        img {
+          max-width: 10%;
+        }
+        p {
+          font-size: clamp(10px, 2vw, 1.5rem);
+          padding: 0 0 0 $padding-mobile;
+          color: $color-text;
+          strong {
+            color: #fefefe;
+          }
+        }
+      }
+      .deluxe-item-container:nth-child(odd) {
+        margin: 0;
+      }
+      .deluxe-galery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100px, auto));
+        grid-template-rows: auto;
+        margin: $margin-desktop $margin-mobile;
+        gap: 10px;
+        img {
+          max-width: 100%;
+          border-radius: 5px;
+        }
+      }
+    }
   }
-  .header li img {
-    max-width: 1rem;
+  .payment-botton {
+    @include paymentButon();
+    button {
+      background: #24b1d1;
+      &:hover {
+        background: #2bc0e2;
+      }
+    }
   }
 }
 
-@media screen and(max-width: 750px) {
-  .header ul {
-    display: none;
+.copyright {
+  grid-area: 9 / 1 / 10 / 4;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  margin: 8rem 0 0 0;
+  color: $color-text;
+  p {
+    font-size: clamp(10px, 4vw, 1.3rem);
   }
-  .main {
-    grid-template-areas:
-      'buy buy'
-      'content content'
-      'continents continents'
-      'feedback feedback'
-      'step step'
-      'sumary sumary'
-      'quotes quotes'
-      'book book';
-  }
-  .main .card-buy-now {
-    padding: 5rem 0;
-  }
-  .main .right-video {
-    padding: 0 0;
-    grid-area: content;
-    max-width: 40rem;
-  }
-  .feedback-container {
-    grid: auto-flow / 1fr;
-    padding: 0 30px;
-    gap: calc(#{$gap-desktop + $gap-mobile});
-    margin: $margin-desktop 0;
-  }
-  .sumary {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto 1fr 50px;
-    grid-template-areas:
-      'learn'
-      'included';
-    gap: $gap-mobile;
-    margin: $margin-mobile 0 0 0;
-    .included {
-      margin: $margin-desktop 0;
-    }
-    .sumary-last-separator {
-      grid-area: 3 / 1 / 3 / 2;
+  a {
+    color: #a74ce4;
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
     }
   }
-  .feedback-container {
-    margin: calc(#{$margin-desktop + 30px}) 0 0 0;
-    padding: 0;
-  }
-  .step-container {
-    margin: $margin-mobile 0 0 0;
+  .copyright-separator {
+    display: block;
+    margin: 5rem 0 0 0;
+    height: 3px;
+    width: 100%;
+    border: none;
+    background: $color-separator;
   }
 }
 
-@media screen and(max-width: 630px) {
-  .header ul {
-    display: none;
-  }
-  .quotes-container {
-    margin: $margin-mobile 0;
-    grid: auto-flow / 1fr;
-    gap: $gap-mobile;
-    p {
-      margin: 1rem 0;
+.footer {
+  grid-area: footer;
+  padding: 0 $padding-desktop;
+  margin: 8rem 0 0 0;
+  display: grid;
+  place-items: center center;
+  .title-footer {
+    span {
+      font-weight: 500;
+      font-size: clamp(14px, 4vw, 2rem);
+      color: #fefefe;
+      box-shadow: inset 0 -6px 0 rgba(184, 107, 255, 0.2);
+    }
+    a {
+      color: #fefefe;
+      text-decoration: none;
     }
   }
-  .book-container {
-    margin: $margin-mobile 0;
-  }
-  .main .card-buy-now {
-    padding: 0 0;
-    margin: $margin-mobile 0;
-  }
-  .feedback-container {
-    margin: calc(#{$margin-desktop + 30px}) 0 0 0;
-    padding: 0;
-  }
-  .step-container {
-    margin: $margin-mobile 0 0 0;
-  }
-  .book-container {
-    img {
-      max-width: 50%;
-    }
-  }
-}
-
-@media screen and(max-width: 460px) {
-  .step {
-    display: grid;
+  figure {
+    display: flex;
+    align-items: center;
     justify-content: center;
-  }
-  .step-container {
-    margin: $margin-mobile 0;
-  }
-  .step-container .step {
-    padding: 0;
-    margin: 0.625em 0 2rem 0;
-  }
-  .step-container .step figure {
-    place-items: start center;
-    img {
-      max-width: 90%;
+    max-width: 100%;
+    margin: 5rem 0;
+    width: 100%;
+    cursor: pointer;
+    svg {
+      min-width: 5rem;
+      max-width: 5rem;
+      margin: 0 30px;
+      fill: #3b5998;
     }
   }
-  .main {
-    margin: 0 10px;
-    padding: 0 10px;
-  }
-  .container-continents {
-    padding: 1px;
-    margin: $margin-mobile 0 0 0;
-    .continents {
+  nav {
+    a {
+      color: #a74ce4;
+      text-decoration: none;
+      font-size: clamp(12px, 2vw, 1rem);
       padding: 10px;
+      text-align: center;
+      transition: color 0.3s ease;
+      &:hover {
+        color: #fefefe;
+      }
+    }
+    span {
+      color: $color-text;
+      text-align: center;
     }
   }
-  .feedback-container {
-    margin: calc(#{$margin-desktop + 30px}) 0 0 0;
-    padding: 0;
+  .copyright-footer {
+    color: $color-text;
+    text-align: center;
+    margin: 10px 0 0 0;
+    font-size: clamp(12px, 4vw, 1rem);
   }
-  .step-container {
-    margin: $margin-mobile 0 0 0;
+  .address {
+    p {
+      text-align: center;
+      margin: 5px 0 0 0;
+      color: $color-text;
+      font-size: clamp(12px, 4vw, 1rem);
+    }
+  }
+  .footer-figure {
+    max-width: 20%;
+  }
+  .footer-figure {
+    margin: $margin-mobile 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-flow: row wrap;
+    max-width: 100%;
+    width: 100%;
+    cursor: pointer;
+    img:nth-child(odd) {
+      min-width: 5rem;
+      max-width: 10rem;
+      margin: 10px 0 20px 0;
+    }
+    svg {
+      margin: 10px 0 20px 30px;
+      min-width: 5rem;
+      max-width: 40%;
+      fill: #fff;
+    }
   }
 }

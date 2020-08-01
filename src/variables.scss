@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+$font-primary: 'Quicksand', sans-serif;
+
+$margin-desktop: 30px;
+$margin-mobile: 20px;
+$padding-desktop: 30px;
+$padding-mobile: 20px;
+$gap-desktop: 30px;
+$gap-mobile: 30px;
+$margin-components: calc(#{$margin-desktop + 50px});
+
+$color-separator: #262629;
+$color-text: #696b8c;

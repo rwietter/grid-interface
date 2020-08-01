@@ -1,0 +1,80 @@
+@mixin paymentButon {
+  background: #16161d;
+  padding: $padding-mobile;
+  border: 1px solid #21212c;
+  border-radius: 5px;
+  height: 10rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: center;
+  button {
+    padding: 15px 50px;
+    outline: none;
+    border: none;
+    background-color: #2dc25c;
+    color: #fefefe;
+    font-family: $font-primary;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 5px;
+    font-size: clamp(12px, 2vw, 1.3rem);
+    transition: 0.5s;
+    &:hover {
+      background-color: #44d872;
+    }
+  }
+}
+
+@mixin navListEffect {
+  a {
+    margin: 0 0 0 $margin-desktop;
+    font-size: clamp(10px, 1rem, 2vw);
+    color: #fff;
+    text-decoration: none;
+    -webkit-transition: color 0.2s ease;
+    -o-transition: color 0.2s ease;
+    transition: color 0.2s ease;
+    padding: 3px 0;
+    margin-bottom: 10px;
+    position: relative;
+    display: inline-block;
+  }
+  a:hover {
+    color: #fbfafc;
+  }
+  a:hover::after,
+  a:hover::before {
+    width: 100%;
+    left: 0;
+  }
+  a::after,
+  a::before {
+    content: '';
+    position: absolute;
+    top: calc(100% + 5px);
+    width: 0;
+    right: 0;
+    height: 3px;
+  }
+  a::before {
+    -webkit-transition: width 0.25s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
+    -o-transition: width 0.25s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
+    transition: width 0.25s cubic-bezier(0.51, 0.18, 0, 0.88) 0.1s;
+    background: #845ec2;
+  }
+  a::after {
+    -webkit-transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83);
+    -o-transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83);
+    transition: width 0.2s cubic-bezier(0.29, 0.18, 0.26, 0.83);
+    background: #2fffad;
+  }
+  a.active:after {
+    background: #2fffad;
+    width: 100%;
+    left: 0;
+  }
+  a.active:before {
+    z-index: 2;
+  }
+}
