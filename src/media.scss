@@ -99,6 +99,11 @@
 }
 
 @media screen and(max-width: 630px) {
+   .main .right-video {
+    padding: 0 0;
+    grid-area: content;
+    max-width: 15rem;
+  }
   .header nav {
     display: none;
   }

@@ -83,3 +83,32 @@
     z-index: 2;
   }
 }
+
+@mixin selection {
+  ::selection {
+    background: #b86bfd;
+    padding: 5px;
+  }
+  ::-moz-selection {
+    background: #b86bfd;
+    padding: 5px;
+  }
+}
+
+@mixin reset {
+  *,
+  *::before,
+  *::after {
+    margin: 0;
+    padding: 0;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  img {
+    max-width: 100%;
+  }
+}
